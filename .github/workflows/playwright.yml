@@ -25,3 +25,6 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
+env:
+  PARABANK_USERNAME: ${{ secrets.PARABANK_USERNAME }}
+  PARABANK_PASSWORD: ${{ secrets.PARABANK_PASSWORD }}
