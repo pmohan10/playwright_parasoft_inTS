@@ -7,3 +7,9 @@ node_modules/
 /playwright/.cache/
 /playwright/.auth/
 /tests/example.spec.ts
+/tests/mainTest.spec.ts
+/tests/seed.spec.ts
+/.gihub/agents/
+
+# Local environment variables
+.env

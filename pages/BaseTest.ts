@@ -7,7 +7,7 @@ export class BaseTest {
     readonly password: Locator;
     readonly loginButton: Locator;
 
-  constructor(page: Page) {
+  constructor( page: Page) {
     this.page = page;  
     this.username = page.locator('[name="username"]');
     this.password = page.locator('[name="password"]');
@@ -20,8 +20,15 @@ export class BaseTest {
   }
 
   async login(): Promise<AcctServices> {
-    await this.username.fill('user19');
-    await this.password.fill('keepthis');
+    const nodeProcess = (globalThis as any).process;
+    const username = nodeProcess?.env?.PARABANK_USERNAME;
+    const password = nodeProcess?.env?.PARABANK_PASSWORD;
+    if (!username || !password) {
+      throw new Error('Missing PARABANK_USERNAME or PARABANK_PASSWORD in environment');
+    }
+
+    await this.username.fill(username);
+    await this.password.fill(password);
     await this.loginButton.click();
     await expect(this.page.getByText('Account Services')).toBeVisible();
     return new AcctServices(this.page);
